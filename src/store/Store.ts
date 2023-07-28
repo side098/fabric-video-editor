@@ -397,10 +397,10 @@ export class Store {
     this.updateAudioElements();
   }
 
-  addVideo(index: number) {
+  addVideo(index: number) : number {
     const videoElement = document.getElementById(`video-${index}`)
     if (!isHtmlVideoElement(videoElement)) {
-      return;
+      return 0;
     }
     const videoDurationMs = videoElement.duration * 1000;
     const aspectRatio = videoElement.videoWidth / videoElement.videoHeight;
@@ -432,6 +432,7 @@ export class Store {
         },
       },
     );
+    return videoDurationMs
   }
 
   addImage(index: number) {

@@ -52,7 +52,7 @@ export const Editor = observer(() => {
       <div className="col-start-4 row-start-2">
         <ElementsPanel />
       </div>
-      <div className="col-start-3 row-start-3 col-span-2 relative overflow-scroll px-[10px] py-[4px]">
+      <div className="col-start-3 row-start-3 col-span-2 relative overflow-hidden px-[10px] py-[4px]">
         <TimeLine />
       </div>
     </div>
