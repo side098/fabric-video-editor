@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React,{useRef} from "react";
 import { EditorElement } from "@/types";
 import { StoreContext } from "@/store";
 import { observer } from "mobx-react";
@@ -12,7 +12,7 @@ export const TimeFrameView = observer((props: { element: EditorElement }) => {
   const isSelected = store.selectedElement?.id === element.id;
   const bgColorOnSelected = isSelected ? "bg-slate-800" : "bg-slate-600";
   const disabledCursor = disabled ? "cursor-no-drop" : "cursor-ew-resize";
-
+  const main_bar = useRef(null)
   return (
     <div
       onClick={() => {
@@ -60,6 +60,7 @@ export const TimeFrameView = observer((props: { element: EditorElement }) => {
         }}
       >
         <div
+          ref={main_bar}
           className={`${bgColorOnSelected} h-full w-full text-white text-xs min-w-[0px] px-2 leading-[25px]`}
         >
           {element.name}
@@ -72,9 +73,11 @@ export const TimeFrameView = observer((props: { element: EditorElement }) => {
         total={store.maxTime}
         onChange={(value) => {
           store.updateEditorElementTimeFrame(element, {
-            end: value,
-          });
+              end: value,
+            })
         }}
+        mainBarRef = {main_bar}
+
       >
         <div
           className={`bg-white border-2 border-blue-400 w-[10px] h-[30px] mt-[calc(25px/2)] translate-y-[-50%] transform translate-x-[-50%] ${disabledCursor}`}

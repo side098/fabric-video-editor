@@ -13,7 +13,7 @@ export const TextResource = observer(
   ({ fontSize, fontWeight, sampleText }: TextResourceProps) => {
     const store = React.useContext(StoreContext);
     return (
-      <div className="items-center bg-slate-800 m-[15px] flex flex-row">
+      <div className="items-center bg-slate-600 m-[15px] flex flex-row">
         <div
           className="flex-1 text-white px-2 py-1"
           style={{

@@ -8,15 +8,18 @@ function DragableView(props: {
   value: number;
   total: number;
   onChange: (value: number) => void;
+  mainBarRef : any
 }) {
   const ref = useRef<{
     div: HTMLDivElement | null;
     isDragging: boolean;
     initialMouseX: number;
+    pre_clientX: number;
   }>({
     div: null,
     isDragging: false,
     initialMouseX: 0,
+    pre_clientX: 0,
   });
   const { current: data } = ref;
   function calculateNewValue(mouseX: number): number {
@@ -24,7 +27,7 @@ function DragableView(props: {
     const deltaX = mouseX - data.initialMouseX;
     const deltaValue =
       (deltaX / data.div.parentElement!.clientWidth) * props.total;
-    return props.value + deltaValue;
+      return props.value + deltaValue;
   }
 
   const handleMouseDown: MouseEventHandler<HTMLDivElement> = (event) => {
@@ -33,12 +36,21 @@ function DragableView(props: {
     data.isDragging = true;
     data.initialMouseX = event.clientX;
   };
-  const handleMouseMove: MouseEventHandler<HTMLDivElement> = (event) => {
+   const handleMouseMove: MouseEventHandler<HTMLDivElement> = (event) => {
     if (!data.div) return;
     if (!data.isDragging) return;
+    
     data.div.style.left = `${
-      (calculateNewValue(event.clientX) / props.total) * 100
+      (calculateNewValue(event.clientX)/ props.total) * 100
     }%`;
+
+    if (props.className === "z-10"){
+      props.mainBarRef.data.div.style.left = `${
+        (calculateNewValue(event.clientX)/ props.total) * 100
+      }%`;
+    }
+
+    console.log("On move")
     event.stopPropagation();
     event.preventDefault();
   };
@@ -47,7 +59,9 @@ function DragableView(props: {
     if (!data.div) return;
     if (!data.isDragging) return;
     data.isDragging = false;
+  
     props.onChange(calculateNewValue(event.clientX));
+    console.log(calculateNewValue(event.clientX))
     event.stopPropagation();
     event.preventDefault();
   };

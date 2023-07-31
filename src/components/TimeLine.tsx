@@ -17,7 +17,7 @@ export const TimeLine = observer(() => {
   return (
     <>
       <SeekPlayer />
-      <div className="relative height-auto overflow-auto" onWheel={handleOnWheel}>
+      <div className="relative height-auto overflow-hiddn shadow-lg shadow-cyan-500/50" onWheel={handleOnWheel}>
         <div
           className="w-[2px] bg-red-400 absolute top-0 bottom-0 z-20"
           style={{
